@@ -18,7 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mictay.snhu.it633.acerestaurantapp.R;
-import com.mictay.snhu.it633.acerestaurantapp.databinding.FragmentCategoryListBinding;
+import com.mictay.snhu.it633.acerestaurantapp.databinding.FragmentMenuCategoryListBinding;
+import com.mictay.snhu.it633.acerestaurantapp.view.home.HomeActivity;
 import com.mictay.snhu.it633.acerestaurantapp.viewmodel.MenuCategoryListViewModel;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class MenuCategoryListFragment extends Fragment {
     private TextView errorTextView;
     private ProgressBar processingProgressBar;
 
-    private FragmentCategoryListBinding binding;
+    private FragmentMenuCategoryListBinding binding;
     private MenuCategoryListViewModel viewModel;
     private MenuCategoryListAdapter menuCategoryListAdapter;
 
@@ -61,7 +62,7 @@ public class MenuCategoryListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentCategoryListBinding.inflate(getLayoutInflater());
+        binding = FragmentMenuCategoryListBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
 
@@ -76,7 +77,18 @@ public class MenuCategoryListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Log.d("app", "onViewCreated called");
 
-        // TEMP CODE TO WORK WITH DETAIL VIEW
+        // *********************************************
+        // START: TEMP CODE TO WORK WITH SPECIFIC FRAGMENT
+
+//        HomeActivity activity = (HomeActivity) getActivity();
+//        //activity.getNavController().navigate(R.id.action_menuCategoryList_to_menuItemListFragment);
+//        activity.getNavController().navigate(R.id.action_menuCategoryList_to_menuItemDetailFragment);
+//
+//        if (!!true)
+//            return;
+
+        // END: TEMP CODE TO WORK WITH SPECIFIC FRAGMENT
+        // *********************************************
 
         recyclerView = binding.recyclerCategoryList;
         errorTextView = binding.recyclerCategoryListError;

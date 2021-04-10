@@ -40,11 +40,6 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
      * @param menuItemList
      */
     public void updateList(List<MenuItem> menuItemList) {
-
-
-        if (menuItemList != null)
-            menuItemList = new ArrayList<MenuItem>();
-
         this.menuItemList.addAll(menuItemList);
         notifyDataSetChanged();
     }

@@ -6,16 +6,16 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/categoriesListFragment"
+        android:id="@+id/menuCategoryList"
         android:name="com.mictay.snhu.it633.acerestaurantapp.view.categories.MenuCategoryListFragment"
-        android:label="Menu"
-        tools:layout="@layout/fragment_category_list">
+        android:label="Menu Categories"
+        tools:layout="@layout/fragment_menu_category_list">
         <action
-            android:id="@+id/action_categoriesListFragment_to_itemsListFragment"
-            app:destination="@id/itemsListFragment" />
+            android:id="@+id/action_menuCategoryList_to_menuItemListFragment"
+            app:destination="@id/menuItemListFragment"/>
         <action
-            android:id="@+id/action_categoriesListFragment_to_itemDetailFragment"
-            app:destination="@id/itemDetailFragment" />
+            android:id="@+id/action_menuCategoryList_to_menuItemDetailFragment"
+            app:destination="@id/menuItemDetailFragment" />
     </fragment>
 
     <fragment
@@ -25,39 +25,30 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_categoriesListFragment"
-            app:destination="@id/categoriesListFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_itemsListFragment"
-            app:destination="@id/itemsListFragment" />
+            app:destination="@id/menuCategoryList" />
         <action
             android:id="@+id/action_homeFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.mictay.snhu.it633.acerestaurantapp.view.cart.CartFragment"
         android:label="Cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
-        android:id="@+id/itemDetailFragment"
-        android:name="com.mictay.snhu.it633.acerestaurantapp.view.items.ItemDetailFragment"
-        android:label="Item"
-        tools:layout="@layout/fragment_item_detail" >
+        android:id="@+id/menuItemListFragment"
+        android:name="com.mictay.snhu.it633.acerestaurantapp.view.items.MenuItemListFragment"
+        android:label="fragment_menu_item_list"
+        tools:layout="@layout/fragment_menu_item_list" >
         <action
-            android:id="@+id/action_itemDetailFragment_to_itemsListFragment"
-            app:destination="@id/itemsListFragment" />
-        <action
-            android:id="@+id/action_itemDetailFragment_to_categoriesListFragment"
-            app:destination="@id/categoriesListFragment" />
+            android:id="@+id/action_menuItemListFragment_to_menuItemDetailFragment"
+            app:destination="@id/menuItemDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/itemsListFragment"
-        android:name="com.mictay.snhu.it633.acerestaurantapp.view.items.ItemsListFragment"
-        android:label="Items"
-        tools:layout="@layout/fragment_item_list" >
-        <action
-            android:id="@+id/action_itemsListFragment_to_itemDetailFragment"
-            app:destination="@id/itemDetailFragment" />
-    </fragment>
+        android:id="@+id/menuItemDetailFragment"
+        android:name="com.mictay.snhu.it633.acerestaurantapp.view.items.MenuItemDetailFragment"
+        android:label="fragment_menu_item_detail"
+        tools:layout="@layout/fragment_menu_item_detail" />
 
 </navigation>

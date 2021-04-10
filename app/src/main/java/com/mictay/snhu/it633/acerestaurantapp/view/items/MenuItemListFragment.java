@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mictay.snhu.it633.acerestaurantapp.databinding.FragmentItemListBinding;
+import com.mictay.snhu.it633.acerestaurantapp.databinding.FragmentMenuItemListBinding;
 import com.mictay.snhu.it633.acerestaurantapp.viewmodel.MenuItemListViewModel;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class MenuItemListFragment extends Fragment {
     private TextView errorTextView;
     private ProgressBar processingProgressBar;
 
-    private FragmentItemListBinding binding;
+    private FragmentMenuItemListBinding binding;
     private MenuItemListViewModel viewModel;
     private MenuItemListAdapter menuItemListAdapter;
 
@@ -58,7 +59,7 @@ public class MenuItemListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentItemListBinding.inflate(getLayoutInflater());
+        binding = FragmentMenuItemListBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
 
@@ -71,7 +72,10 @@ public class MenuItemListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d("app", "onViewCreated called");
+
+        if (getArguments() != null) {
+            Log.d("app", getArguments().getString("param"));
+        }
 
         recyclerView = binding.recyclerItemList;
         errorTextView = binding.recyclerItemListError;

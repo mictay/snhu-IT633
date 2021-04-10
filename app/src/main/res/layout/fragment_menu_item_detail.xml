@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.items.ItemDetailFragment">
+    tools:context=".view.items.MenuItemDetailFragment">
 
     <ImageView
         android:id="@+id/menu_item_detail_image_view"

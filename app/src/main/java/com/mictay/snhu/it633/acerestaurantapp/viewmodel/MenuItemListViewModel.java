@@ -63,6 +63,18 @@ public class MenuItemListViewModel extends AndroidViewModel {
         MenuItem obj18 = new MenuItem("18", "item 18", "$12.99", "1", "description here 18", "");
         MenuItem obj19 = new MenuItem("19", "item 19", "$13.99", "1", "description here 19", "");
 
+        MenuItem obj20 = new MenuItem("10", "item 20", "$4.99", "1", "description here 10", "");
+        MenuItem obj21 = new MenuItem("11", "item 21", "$5.99", "1", "description here 11", "");
+        MenuItem obj22 = new MenuItem("12", "item 22", "$6.99", "1", "description here 12", "");
+        MenuItem obj23 = new MenuItem("13", "item 23", "$7.99", "1", "description here 13", "");
+        MenuItem obj24 = new MenuItem("14", "item 24", "$8.99", "1", "description here 14", "");
+        MenuItem obj25 = new MenuItem("15", "item 25", "$9.99", "1", "description here 15", "");
+        MenuItem obj26 = new MenuItem("16", "item 26", "$10.99", "1", "description here 16", "");
+        MenuItem obj27 = new MenuItem("17", "item 27", "$11.99", "1", "description here 17", "");
+        MenuItem obj28 = new MenuItem("18", "item 28", "$12.99", "1", "description here 18", "");
+        MenuItem obj29 = new MenuItem("19", "item 29", "$13.99", "1", "description here 19", "");
+
+
         ArrayList<MenuItem> arr = new ArrayList<>();
         arr.add(obj0);
         arr.add(obj1);
@@ -85,6 +97,17 @@ public class MenuItemListViewModel extends AndroidViewModel {
         arr.add(obj17);
         arr.add(obj18);
         arr.add(obj19);
+
+        arr.add(obj20);
+        arr.add(obj21);
+        arr.add(obj22);
+        arr.add(obj23);
+        arr.add(obj24);
+        arr.add(obj25);
+        arr.add(obj26);
+        arr.add(obj27);
+        arr.add(obj28);
+        arr.add(obj29);
 
         // Let our watchers know somethings changed, and remove the error and spinner
         menuItemList.setValue(arr);

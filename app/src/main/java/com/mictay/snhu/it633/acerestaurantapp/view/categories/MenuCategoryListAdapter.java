@@ -1,14 +1,18 @@
 package com.mictay.snhu.it633.acerestaurantapp.view.categories;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mictay.snhu.it633.acerestaurantapp.R;
@@ -80,6 +84,15 @@ public class MenuCategoryListAdapter extends RecyclerView.Adapter<MenuCategoryLi
 
         TextView description = holder.itemView.findViewById(R.id.menu_category_text_view_description);
         description.setText(menuCategoryList.get(position).categoryDescription);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("param", "blah blah blah");
+
+        holder.itemView.setOnClickListener(v -> {
+            Navigation.findNavController(holder.itemView)
+                    .navigate(R.id.action_menuCategoryList_to_menuItemListFragment, bundle);
+        });
+
     }
 
     /*********************************************************
