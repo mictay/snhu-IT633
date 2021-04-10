@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">AceRestaurantApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_view">TextView</string>
+    <string name="todo">TODO</string>
+    <string name="create_an_account">Create an Account</string>
+    <string name="sign_in">Sign In</string>
+    <string name="continue_as_guest">Continue as Guest</string>
+    <string name="the_ace_restaurant">The Ace Restaurant</string>
+    <string name="ace_restaurant_log">The Ace Restaurant</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="title_activity_home2">HomeActivity2</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">The Ace Restaurant</string>
+    <string name="nav_header_subtitle">(407) 555-1234</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_home">activity_home_label</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_cart">Your Cart</string>
+    <string name="menu_menu">Menu</string>
+    <string name="error_occurred">An error occurred while loading data</string>
+</resources>
