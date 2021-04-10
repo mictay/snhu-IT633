@@ -36,15 +36,17 @@
         android:name="com.mictay.snhu.it633.acerestaurantapp.view.cart.CartFragment"
         android:label="Cart"
         tools:layout="@layout/fragment_cart" />
+
     <fragment
         android:id="@+id/menuItemListFragment"
         android:name="com.mictay.snhu.it633.acerestaurantapp.view.items.MenuItemListFragment"
-        android:label="fragment_menu_item_list"
+        android:label="Menu Items"
         tools:layout="@layout/fragment_menu_item_list" >
         <action
             android:id="@+id/action_menuItemListFragment_to_menuItemDetailFragment"
             app:destination="@id/menuItemDetailFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/menuItemDetailFragment"
         android:name="com.mictay.snhu.it633.acerestaurantapp.view.items.MenuItemDetailFragment"

@@ -42,7 +42,7 @@ public class MenuCategoryListViewModel extends AndroidViewModel {
         // TODO: MOCK THE DATA, GET THIS FROM A BACKEND
 
         MenuCategory category1 = new MenuCategory("1", "Starters", "Great way to start your meal by sharing some delicious appetizers.", "");
-        MenuCategory category2 = new MenuCategory("2", "Soups &amp; Salads", "Farmed fresh every day.", "");
+        MenuCategory category2 = new MenuCategory("2", "Soups & Salads", "Farmed fresh every day.", "");
         MenuCategory category3 = new MenuCategory("3", "Entrees", "Large selection of rich flavored entrees.  Served with two sides.", "");
         MenuCategory category4 = new MenuCategory("4", "Beverages", "Hot or Cold, there is nothing better to quench a thirst", "");
         MenuCategory category5 = new MenuCategory("4", "Desserts", "All desserts are made by our award winning chefs", "");

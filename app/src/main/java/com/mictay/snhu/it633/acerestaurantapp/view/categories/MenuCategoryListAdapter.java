@@ -85,10 +85,14 @@ public class MenuCategoryListAdapter extends RecyclerView.Adapter<MenuCategoryLi
         TextView description = holder.itemView.findViewById(R.id.menu_category_text_view_description);
         description.setText(menuCategoryList.get(position).categoryDescription);
 
-        Bundle bundle = new Bundle();
-        bundle.putString("param", "blah blah blah");
-
         holder.itemView.setOnClickListener(v -> {
+
+            MenuCategory category = menuCategoryList.get(position);
+
+            Bundle bundle = new Bundle();
+            bundle.putString("categoryId", category.categoryId);
+            bundle.putString("categoryName", category.categoryName);
+
             Navigation.findNavController(holder.itemView)
                     .navigate(R.id.action_menuCategoryList_to_menuItemListFragment, bundle);
         });
@@ -115,7 +119,7 @@ public class MenuCategoryListAdapter extends RecyclerView.Adapter<MenuCategoryLi
 
         public MenuCategoryViewHolder(@NonNull View itemView) {
             super(itemView);
-            Log.d("app", "MenuCategoryViewHolder called with " + itemView.toString());
+            Log.d("app", "MenuCategoryViewHolder called with " + itemView);
             this.itemView = itemView;
         }
 

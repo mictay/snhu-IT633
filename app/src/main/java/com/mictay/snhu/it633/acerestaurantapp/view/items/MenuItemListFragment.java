@@ -11,11 +11,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mictay.snhu.it633.acerestaurantapp.R;
 import com.mictay.snhu.it633.acerestaurantapp.databinding.FragmentMenuItemListBinding;
 import com.mictay.snhu.it633.acerestaurantapp.viewmodel.MenuItemListViewModel;
 
@@ -73,8 +79,20 @@ public class MenuItemListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        String title = "Menu Items";
+
+        if (getArguments() != null && getArguments().getString("categoryName") != null)
+            title = getArguments().getString("categoryName");
+
+        // change the toolbar title to reflect the category
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(title);
+
+
+        // Retrieve the Parameters from the Menu Category List
         if (getArguments() != null) {
-            Log.d("app", getArguments().getString("param"));
+            Log.d("app", getArguments().getString("categoryId"));
+            Log.d("app", getArguments().getString("categoryName"));
         }
 
         recyclerView = binding.recyclerItemList;
