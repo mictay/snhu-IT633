@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.mictay.snhu.it633.acerestaurantapp.R;
+import com.mictay.snhu.it633.acerestaurantapp.data.Data;
 import com.mictay.snhu.it633.acerestaurantapp.model.MenuCategory;
 
 import java.util.ArrayList;
@@ -39,21 +41,9 @@ public class MenuCategoryListViewModel extends AndroidViewModel {
      */
     public void refresh() {
         Log.d("app", "refresh called");
-        // TODO: MOCK THE DATA, GET THIS FROM A BACKEND
 
-        MenuCategory category1 = new MenuCategory("1", "Starters", "Great way to start your meal by sharing some delicious appetizers.", "");
-        MenuCategory category2 = new MenuCategory("2", "Soups & Salads", "Farmed fresh every day.", "");
-        MenuCategory category3 = new MenuCategory("3", "Entrees", "Large selection of rich flavored entrees.  Served with two sides.", "");
-        MenuCategory category4 = new MenuCategory("4", "Beverages", "Hot or Cold, there is nothing better to quench a thirst", "");
-        MenuCategory category5 = new MenuCategory("4", "Desserts", "All desserts are made by our award winning chefs", "");
-        MenuCategory category6 = new MenuCategory("4", "Kids", "For guest under 10 and under.  All kids meals come with a side and a drink", "");
-        ArrayList<MenuCategory> arr = new ArrayList<>();
-        arr.add(category1);
-        arr.add(category2);
-        arr.add(category3);
-        arr.add(category4);
-        arr.add(category5);
-        arr.add(category6);
+        // TODO: MOCK THE DATA, GET THIS FROM A BACKEND
+        ArrayList<MenuCategory> arr = Data.getMenuCategoryList();
 
         // Let our watchers know somethings changed, and remove the error and spinner
         menuCategoryList.setValue(arr);

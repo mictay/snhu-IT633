@@ -66,9 +66,17 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
     @Override
     public void onBindViewHolder(@NonNull MenuItemViewHolder holder, int position) {
         Log.d("app", "onBindViewHolder called position=" + position);
+
         ImageView image = holder.itemView.findViewById(R.id.menu_item_image_view);
+        if (menuItemList.get(position).imageUrl != null && menuItemList.get(position).imageUrl.length() > 0) {
+            image.setImageResource( Integer.valueOf(menuItemList.get(position).imageUrl));
+        } else {
+            image.setImageResource( R.drawable.ic_item );
+        }
+
         TextView name = holder.itemView.findViewById(R.id.menu_item_text_view_name);
         name.setText(menuItemList.get(position).itemName);
+
         TextView description = holder.itemView.findViewById(R.id.menu_item_text_view_description);
         description.setText(menuItemList.get(position).itemDescription);
     }

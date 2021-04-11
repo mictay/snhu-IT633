@@ -79,6 +79,12 @@ public class MenuCategoryListAdapter extends RecyclerView.Adapter<MenuCategoryLi
 
         ImageView image = holder.itemView.findViewById(R.id.menu_category_image_view);
 
+        if (menuCategoryList.get(position).imageUrl != null && menuCategoryList.get(position).imageUrl.length() > 0) {
+            image.setImageResource( Integer.valueOf(menuCategoryList.get(position).imageUrl));
+        } else {
+            image.setImageResource( R.drawable.ic_category );
+        }
+
         TextView name = holder.itemView.findViewById(R.id.menu_category_text_view_name);
         name.setText(menuCategoryList.get(position).categoryName);
 

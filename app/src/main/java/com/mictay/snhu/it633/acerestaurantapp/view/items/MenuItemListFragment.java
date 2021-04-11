@@ -42,6 +42,8 @@ public class MenuItemListFragment extends Fragment {
     private MenuItemListViewModel viewModel;
     private MenuItemListAdapter menuItemListAdapter;
 
+    private String specificCategoryId = null;
+
     /*************************************************************
      *
      */
@@ -80,16 +82,19 @@ public class MenuItemListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         String title = "Menu Items";
+        String categoryId = "";
 
         if (getArguments() != null && getArguments().getString("categoryName") != null)
             title = getArguments().getString("categoryName");
+
+        if (getArguments() != null && getArguments().getString("categoryId") != null)
+            categoryId = getArguments().getString("categoryId");
 
         // change the toolbar title to reflect the category
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle(title);
 
-
-        // Retrieve the Parameters from the Menu Category List
+        // Log the Parameters from the Menu Category List
         if (getArguments() != null) {
             Log.d("app", getArguments().getString("categoryId"));
             Log.d("app", getArguments().getString("categoryName"));
@@ -110,7 +115,7 @@ public class MenuItemListFragment extends Fragment {
         viewModel = new ViewModelProvider(this,
                 ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication())).get(MenuItemListViewModel.class); //TODO:HERE
 
-        viewModel.refresh();
+        viewModel.refresh(categoryId);
 
         // Set up the observer to populate the viewModel
         observeViewModel();

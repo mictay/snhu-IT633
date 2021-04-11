@@ -40,7 +40,7 @@ public class MenuCategoryListFragment extends Fragment {
     private MenuCategoryListAdapter menuCategoryListAdapter;
 
     /*************************************************************
-     *
+     * Convenient method auto generated
      */
     public static MenuCategoryListFragment newInstance() {
         MenuCategoryListFragment fragment = new MenuCategoryListFragment();
@@ -48,7 +48,7 @@ public class MenuCategoryListFragment extends Fragment {
     }
 
     /*************************************************************
-     *
+     * LifeCycle method
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class MenuCategoryListFragment extends Fragment {
     }
 
     /*************************************************************
-     *
+     * LifeCycle method
      */
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -111,7 +111,7 @@ public class MenuCategoryListFragment extends Fragment {
     }
 
     /*************************************************************
-     *
+     *  Watch for changes to our list
      */
     private void observeViewModel() {
 
@@ -152,7 +152,7 @@ public class MenuCategoryListFragment extends Fragment {
     }
 
     /*************************************************************
-     *
+     * Clean up our Object
      */
     @Override
     public void onDestroyView() {
