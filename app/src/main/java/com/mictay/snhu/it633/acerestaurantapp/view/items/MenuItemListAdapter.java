@@ -1,6 +1,7 @@
 package com.mictay.snhu.it633.acerestaurantapp.view.items;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mictay.snhu.it633.acerestaurantapp.R;
+import com.mictay.snhu.it633.acerestaurantapp.model.MenuCategory;
 import com.mictay.snhu.it633.acerestaurantapp.model.MenuItem;
 
 import java.util.ArrayList;
@@ -67,6 +70,7 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
     public void onBindViewHolder(@NonNull MenuItemViewHolder holder, int position) {
         Log.d("app", "onBindViewHolder called position=" + position);
 
+        // Icon
         ImageView image = holder.itemView.findViewById(R.id.menu_item_image_view);
         if (menuItemList.get(position).imageUrl != null && menuItemList.get(position).imageUrl.length() > 0) {
             image.setImageResource( Integer.valueOf(menuItemList.get(position).imageUrl));
@@ -74,11 +78,27 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
             image.setImageResource( R.drawable.ic_item );
         }
 
+        // Name
         TextView name = holder.itemView.findViewById(R.id.menu_item_text_view_name);
         name.setText(menuItemList.get(position).itemName);
 
+        // Description
         TextView description = holder.itemView.findViewById(R.id.menu_item_text_view_description);
-        description.setText(menuItemList.get(position).itemDescription);
+        String text = menuItemList.get(position).itemDescription;
+        description.setText(text);
+
+        // Navigation to Item
+        holder.itemView.setOnClickListener(v -> {
+
+            MenuItem menuItem = menuItemList.get(position);
+
+            Bundle bundle = new Bundle();
+            bundle.putString("menuItemId", menuItem.itemId);
+
+            Navigation.findNavController(holder.itemView)
+                    .navigate(R.id.action_menuItemListFragment_to_menuItemDetailFragment, bundle);
+        });
+
     }
 
     /*********************************************************

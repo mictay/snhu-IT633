@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,6 +81,20 @@ public class MenuItemListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // SEARCH BUTTON NAVIGATION
+        Button searchButton = getActivity().findViewById(R.id.search_button);
+        searchButton.setOnClickListener(v -> {
+            Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+                    .navigate(R.id.action_menuItemListFragment_to_searchFragment, null);
+        });
+
+        // CART BUTTON NAVIGATION
+        View cartView = getActivity().findViewById(R.id.cart_view_layout);
+        cartView.setOnClickListener(v -> {
+            Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+                    .navigate(R.id.action_menuItemListFragment_to_cartFragment, null);
+        });
 
         String title = "Menu Items";
         String categoryId = "";

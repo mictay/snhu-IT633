@@ -7,14 +7,14 @@ public class MenuItem {
 
     public String itemId;
     public String itemName;
-    public String itemPrice;
+    public double itemPrice;
     public String categoryId;
     public String itemDescription;
     public String imageUrl;
     public int uui;
 
     // Constructor
-    public MenuItem(String itemId, String itemName, String itemPrice, String categoryId, String itemDescription, String imageUrl) {
+    public MenuItem(String itemId, String itemName, double itemPrice, String categoryId, String itemDescription, String imageUrl) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.itemPrice = itemPrice;

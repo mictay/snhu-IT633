@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -76,6 +77,20 @@ public class MenuCategoryListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d("app", "onViewCreated called");
+
+        // SEARCH BUTTON NAVIGATION
+        Button searchButton = getActivity().findViewById(R.id.search_button);
+        searchButton.setOnClickListener(v -> {
+            Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+                    .navigate(R.id.action_menuCategoryList_to_searchFragment, null);
+        });
+
+        // CART BUTTON NAVIGATION
+        View cartView = getActivity().findViewById(R.id.cart_view_layout);
+        cartView.setOnClickListener(v -> {
+            Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+                    .navigate(R.id.action_menuCategoryList_to_cartFragment, null);
+        });
 
         // *********************************************
         // START: TEMP CODE TO WORK WITH SPECIFIC FRAGMENT

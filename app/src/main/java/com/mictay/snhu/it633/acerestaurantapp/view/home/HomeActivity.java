@@ -1,9 +1,14 @@
 package com.mictay.snhu.it633.acerestaurantapp.view.home;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.mictay.snhu.it633.acerestaurantapp.R;
+import com.mictay.snhu.it633.acerestaurantapp.view.cart.CartData;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -33,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,6 +69,17 @@ public class HomeActivity extends AppCompatActivity {
         //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    /**************************************************************************
+     *
+     */
+    public void updateCartTotal() {
+        View cartView = findViewById(R.id.cart_view_layout);
+        TextView cartTotalText = findViewById(R.id.cart_view_total);
+        String total = CartData.getTotal();
+        cartTotalText.setText(total);
+        cartView.setVisibility(View.VISIBLE);
     }
 
 }

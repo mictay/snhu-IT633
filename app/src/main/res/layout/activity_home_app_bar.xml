@@ -24,17 +24,16 @@
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
+                    android:id="@+id/search_button"
+                    android:layout_width="56dp"
+                    android:layout_height="52dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="8dp"
+                    android:paddingTop="8dp"
                     android:backgroundTint="@android:color/holo_green_dark"
-                    android:drawableLeft="@drawable/ic_search_white_background"
+                    android:drawableTop="@drawable/ic_search_white_background"
                     android:drawablePadding="0dp"
-                    android:text="Search"
                     android:textColor="@color/white"
-                    android:textSize="12dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
