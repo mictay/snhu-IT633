@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -43,6 +44,7 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
      * @param menuItemList
      */
     public void updateList(List<MenuItem> menuItemList) {
+        this.menuItemList = new ArrayList<MenuItem>();
         this.menuItemList.addAll(menuItemList);
         notifyDataSetChanged();
     }
