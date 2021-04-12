@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.mictay.snhu.it633.acerestaurantapp.R;
@@ -78,6 +79,16 @@ public class HomeActivity extends AppCompatActivity {
         View cartView = findViewById(R.id.cart_view_layout);
         TextView cartTotalText = findViewById(R.id.cart_view_total);
         String total = CartData.getTotal();
+
+        Button checkout = findViewById(R.id.cart_view_check_out);
+
+        if (total.equalsIgnoreCase("$0.00"))
+            checkout.setVisibility(View.GONE);
+        else {
+            checkout.setVisibility(View.VISIBLE);
+            checkout.setOnClickListener(v -> Toast.makeText(getApplicationContext(), "Not Implemented", Toast.LENGTH_LONG).show());
+        }
+
         cartTotalText.setText(total);
         cartView.setVisibility(View.VISIBLE);
     }
