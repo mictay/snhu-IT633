@@ -106,6 +106,9 @@ public class MenuItemDetailFragment extends Fragment {
         ArrayAdapter<String> aa = new ArrayAdapter<String>(getContext(), R.layout.spinner_layout, Data.getQuantitySpinnerValues());
         binding.menuItemDetailQuantitySpinner.setAdapter(aa);
 
+        if (quantity > 10)
+            quantity = 10;
+
         // Can we prepopulate the quantity in the Spinner?
         binding.menuItemDetailQuantitySpinner.setSelection(quantity - 1);
 
