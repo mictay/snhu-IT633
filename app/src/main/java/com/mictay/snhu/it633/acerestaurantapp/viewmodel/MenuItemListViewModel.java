@@ -50,4 +50,13 @@ public class MenuItemListViewModel extends AndroidViewModel {
         menuItemLoading.setValue(false);
     }
 
+    /***********************************************************************
+     *
+     */
+    public void refreshFromRemote(String categoryId) {
+        Log.d("app", "refreshFromRemote called");
+        //TODO: cache busting, go get from the real system of record
+        refresh(categoryId);
+    }
+
 }

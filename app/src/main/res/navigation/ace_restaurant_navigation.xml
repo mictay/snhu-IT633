@@ -89,15 +89,18 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.mictay.snhu.it633.acerestaurantapp.view.search.SearchFragment"
+        android:name="com.mictay.snhu.it633.acerestaurantapp.view.search.SearchMenuItemListFragment"
         android:label="Find Delicious"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search_menu_item_list" >
         <action
             android:id="@+id/action_searchFragment_self"
             app:destination="@id/searchFragment" />
         <action
             android:id="@+id/action_searchFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_menuItemDetailFragment"
+            app:destination="@id/menuItemDetailFragment" />
     </fragment>
 
 </navigation>

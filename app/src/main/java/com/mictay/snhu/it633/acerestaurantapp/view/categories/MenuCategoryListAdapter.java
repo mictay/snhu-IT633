@@ -45,10 +45,7 @@ public class MenuCategoryListAdapter extends RecyclerView.Adapter<MenuCategoryLi
      */
     public void updateList(List<MenuCategory> menuCategoryList) {
         Log.d("app", "updateList called");
-
-        if (menuCategoryList == null)
-            menuCategoryList = new ArrayList<MenuCategory>();
-
+        this.menuCategoryList = new ArrayList<MenuCategory>();
         this.menuCategoryList.addAll(menuCategoryList);
         notifyDataSetChanged();
     }

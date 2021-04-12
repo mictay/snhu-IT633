@@ -1,5 +1,7 @@
 package com.mictay.snhu.it633.acerestaurantapp.data;
 
+import android.util.Log;
+
 import com.mictay.snhu.it633.acerestaurantapp.R;
 import com.mictay.snhu.it633.acerestaurantapp.model.MenuCategory;
 import com.mictay.snhu.it633.acerestaurantapp.model.MenuItem;
@@ -23,6 +25,66 @@ public abstract class Data {
     private static ArrayList<String> randomDelights = new ArrayList<>();
 
     private static String[] quantitySpinnerValues;
+
+    public static ArrayList<MenuItem> searchListResults = new ArrayList<>();
+
+    /**************************************************************************
+     * Simple brute force searching from pojo arraylist
+     *
+     * @param searchParams
+     * @return
+     */
+    public static ArrayList<MenuItem> getSearchListResults(String searchParams) {
+        lastSearchTerm = searchParams.toLowerCase();
+        searchParams = lastSearchTerm;
+
+        // Empty Search
+        if (searchParams == null || searchParams.length() == 0)
+            return new ArrayList<MenuItem>();
+
+        ArrayList<MenuItem> searchResults = new ArrayList<MenuItem>();
+
+        String[] searchTerms = searchParams.split(" ");
+
+        // 2 passes EXACT then CONTAINS, if EXACT, then just send its
+
+        // Try exact Match First
+        for(MenuItem item : items) {
+
+            if (item.itemName.equalsIgnoreCase(searchParams)) {
+                searchResults.add(item);
+                return searchResults;
+            }
+
+        }
+
+        Log.d("app", "Did not find exact result, looking for contains");
+
+        // Lets look around for CONTAINS
+        boolean bFound = false;
+        for(MenuItem item : items) {
+            bFound = false;
+            String name = item.itemName.toLowerCase();
+            String description = item.itemDescription.toLowerCase();
+
+            for (int i = 0; i < searchTerms.length; i++) {
+                Log.d("app", "Looking for term " + searchTerms[i] + " in " + name);
+
+                if ( name.contains(searchTerms[i]) || description.contains(searchTerms[i])) {
+                    bFound = true;
+                    break;
+                }
+
+            }
+
+            if (bFound) {
+                searchResults.add(item);
+            }
+
+        }
+
+        return searchResults;
+    }
 
     /**************************************************************************
      * Simple list of 1-10 for spinner controls

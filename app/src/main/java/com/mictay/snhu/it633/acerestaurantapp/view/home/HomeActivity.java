@@ -82,4 +82,12 @@ public class HomeActivity extends AppCompatActivity {
         cartView.setVisibility(View.VISIBLE);
     }
 
+    /**************************************************************************
+     *
+     */
+    public boolean isCartVisible() {
+        View cartView = findViewById(R.id.cart_view_layout);
+        return (cartView.getVisibility() == View.VISIBLE);
+    }
+
 }

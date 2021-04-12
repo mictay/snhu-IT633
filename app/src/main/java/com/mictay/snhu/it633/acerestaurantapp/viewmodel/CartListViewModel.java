@@ -52,4 +52,13 @@ public class CartListViewModel extends AndroidViewModel {
         cartItemLoading.setValue(false);
     }
 
+    /***********************************************************************
+     *
+     */
+    public void refreshFromRemote() {
+        Log.d("app", "refreshFromRemote called");
+        //TODO: cache busting, go get from the real system of record
+        refresh();
+    }
+
 }

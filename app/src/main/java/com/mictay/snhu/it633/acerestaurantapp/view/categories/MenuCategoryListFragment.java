@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Space;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.mictay.snhu.it633.acerestaurantapp.R;
 import com.mictay.snhu.it633.acerestaurantapp.databinding.FragmentMenuCategoryListBinding;
@@ -32,6 +34,7 @@ import java.util.List;
  */
 public class MenuCategoryListFragment extends Fragment {
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private TextView errorTextView;
     private ProgressBar processingProgressBar;
@@ -39,6 +42,7 @@ public class MenuCategoryListFragment extends Fragment {
     private FragmentMenuCategoryListBinding binding;
     private MenuCategoryListViewModel viewModel;
     private MenuCategoryListAdapter menuCategoryListAdapter;
+    private Space spacer;
 
     /*************************************************************
      * Convenient method auto generated
@@ -92,25 +96,30 @@ public class MenuCategoryListFragment extends Fragment {
                     .navigate(R.id.action_menuCategoryList_to_cartFragment, null);
         });
 
-        // *********************************************
-        // START: TEMP CODE TO WORK WITH SPECIFIC FRAGMENT
-
-//        HomeActivity activity = (HomeActivity) getActivity();
-//        //activity.getNavController().navigate(R.id.action_menuCategoryList_to_menuItemListFragment);
-//        activity.getNavController().navigate(R.id.action_menuCategoryList_to_menuItemDetailFragment);
-//
-//        if (!!true)
-//            return;
-
-        // END: TEMP CODE TO WORK WITH SPECIFIC FRAGMENT
-        // *********************************************
-
+        swipeRefreshLayout = binding.refreshCategoryListLayout;
         recyclerView = binding.recyclerCategoryList;
         errorTextView = binding.recyclerCategoryListError;
         processingProgressBar = binding.recyclerCategoryListLoading;
+        spacer = binding.recyclerCategoryListSpacer;
+
+        // Setup Force Refresh request
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            recyclerView.setVisibility(View.GONE);
+            errorTextView.setVisibility(View.GONE);
+            processingProgressBar.setVisibility(View.VISIBLE);
+            viewModel.refreshFromRemote();
+            swipeRefreshLayout.setRefreshing(false);
+        });
 
         // Gives us a List in a Linear fashion
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Gives us a List in a Linear fashion
+        if ( ((HomeActivity)getActivity()).isCartVisible() ) {
+            spacer.setVisibility(View.VISIBLE);
+        } else {
+            spacer.setVisibility(View.GONE);
+        }
 
         // Create the Adapter
         menuCategoryListAdapter = new MenuCategoryListAdapter(getContext(), new ArrayList<>());

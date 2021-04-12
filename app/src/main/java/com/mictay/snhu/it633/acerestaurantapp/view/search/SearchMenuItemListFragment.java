@@ -1,4 +1,4 @@
-package com.mictay.snhu.it633.acerestaurantapp.view.items;
+package com.mictay.snhu.it633.acerestaurantapp.view.search;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -6,29 +6,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Space;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.mictay.snhu.it633.acerestaurantapp.R;
-import com.mictay.snhu.it633.acerestaurantapp.databinding.FragmentMenuItemListBinding;
+import com.mictay.snhu.it633.acerestaurantapp.data.Data;
+import com.mictay.snhu.it633.acerestaurantapp.databinding.FragmentSearchMenuItemListBinding;
 import com.mictay.snhu.it633.acerestaurantapp.view.home.HomeActivity;
 import com.mictay.snhu.it633.acerestaurantapp.viewmodel.MenuItemListViewModel;
+import com.mictay.snhu.it633.acerestaurantapp.viewmodel.SearchMenuItemListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,25 +35,25 @@ import java.util.List;
  *
  *
  */
-public class MenuItemListFragment extends Fragment {
+public class SearchMenuItemListFragment extends Fragment {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private TextView errorTextView;
     private ProgressBar processingProgressBar;
 
-    private FragmentMenuItemListBinding binding;
-    private MenuItemListViewModel viewModel;
-    private MenuItemListAdapter menuItemListAdapter;
+    private FragmentSearchMenuItemListBinding binding;
+    private SearchMenuItemListViewModel viewModel;
+    private SearchMenuItemListAdapter searchMenuItemListAdapter;
+    private EditText searchEditText;
+    private Button searchButton;
     private Space spacer;
-
-    private String categoryId = null;
 
     /*************************************************************
      *
      */
-    public static MenuItemListFragment newInstance() {
-        MenuItemListFragment fragment = new MenuItemListFragment();
+    public static SearchMenuItemListFragment newInstance() {
+        SearchMenuItemListFragment fragment = new SearchMenuItemListFragment();
         return fragment;
     }
 
@@ -74,7 +72,7 @@ public class MenuItemListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentMenuItemListBinding.inflate(getLayoutInflater());
+        binding = FragmentSearchMenuItemListBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
 
@@ -92,24 +90,17 @@ public class MenuItemListFragment extends Fragment {
         Button searchButton = getActivity().findViewById(R.id.search_button);
         searchButton.setOnClickListener(v -> {
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
-                    .navigate(R.id.action_menuItemListFragment_to_searchFragment, null);
+                    .navigate(R.id.action_searchFragment_self, null);
         });
 
         // CART BUTTON NAVIGATION
         View cartView = getActivity().findViewById(R.id.cart_view_layout);
         cartView.setOnClickListener(v -> {
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
-                    .navigate(R.id.action_menuItemListFragment_to_cartFragment, null);
+                    .navigate(R.id.action_searchFragment_to_cartFragment, null);
         });
 
-        String title = "Menu Items";
-        categoryId = "";
-
-        if (getArguments() != null && getArguments().getString("categoryName") != null)
-            title = getArguments().getString("categoryName");
-
-        if (getArguments() != null && getArguments().getString("categoryId") != null)
-            categoryId = getArguments().getString("categoryId");
+        String title = "Find Tasty Food";
 
         // change the toolbar title to reflect the category
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
@@ -117,25 +108,32 @@ public class MenuItemListFragment extends Fragment {
 
         // Log the Parameters from the Menu Category List
         if (getArguments() != null) {
-            Log.d("app", getArguments().getString("categoryId"));
-            Log.d("app", getArguments().getString("categoryName"));
+            Log.d("app", getArguments().getString("searchParams"));
+            Log.d("app", getArguments().getString("searchParams"));
         }
 
         swipeRefreshLayout = binding.refreshMenuItemListLayout;
-        recyclerView = binding.recyclerItemList;
-        errorTextView = binding.recyclerItemListError;
-        processingProgressBar = binding.recyclerItemListLoading;
-        spacer = binding.recyclerItemListSpacer;
+        recyclerView = binding.recyclerSearchMenuItemList;
+        errorTextView = binding.recyclerSearchMenuItemListError;
+        processingProgressBar = binding.recyclerSearchMenuItemListLoading;
+        searchEditText = binding.searchMenuItemQueryText;
+        searchButton = binding.searchMenuItemQueryButton;
+        spacer = binding.recyclerSearchMenuItemListSpacer;
 
         // Setup Force Refresh request
         swipeRefreshLayout.setOnRefreshListener(() -> {
             recyclerView.setVisibility(View.GONE);
             errorTextView.setVisibility(View.GONE);
             processingProgressBar.setVisibility(View.VISIBLE);
-            viewModel.refreshFromRemote(categoryId);
+            Data.lastSearchTerm = searchEditText.getText().toString();
+            viewModel.refreshFromRemote(Data.lastSearchTerm);
             swipeRefreshLayout.setRefreshing(false);
         });
 
+        // Remember searches
+        searchEditText.setText(Data.lastSearchTerm);
+
+        // Gives us a List in a Linear fashion
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Gives us a List in a Linear fashion
@@ -146,14 +144,25 @@ public class MenuItemListFragment extends Fragment {
         }
 
         // Create the Adapter
-        menuItemListAdapter = new MenuItemListAdapter(getContext(), new ArrayList<>());
-        recyclerView.setAdapter(menuItemListAdapter);
+        searchMenuItemListAdapter = new SearchMenuItemListAdapter(getContext(), new ArrayList<>());
+        recyclerView.setAdapter(searchMenuItemListAdapter);
 
         // Getting the View Model
         viewModel = new ViewModelProvider(this,
-                ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication())).get(MenuItemListViewModel.class); //TODO:HERE
+                ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication())).get(SearchMenuItemListViewModel.class); //TODO:HERE
 
-        viewModel.refresh(categoryId);
+        // Search Default (might be empty, might not, lets remember it anyhow)
+        viewModel.refresh(Data.lastSearchTerm);
+
+        // Setup that search button
+        searchButton.setOnClickListener(v -> {
+            Data.lastSearchTerm = searchEditText.getText().toString();
+
+            Log.d("app", "searchButton clicked searching for " + Data.lastSearchTerm);
+
+            viewModel.refresh(Data.lastSearchTerm);
+        });
+
 
         // Set up the observer to populate the viewModel
         observeViewModel();
@@ -165,19 +174,19 @@ public class MenuItemListFragment extends Fragment {
     private void observeViewModel() {
 
         // The mutable changes will be felt here in the observe method
-        viewModel.menuItemList.observe(getViewLifecycleOwner(), list -> {
+        viewModel.searchMenuItemList.observe(getViewLifecycleOwner(), list -> {
             Log.d("app", "observeViewModel observe called");
 
             if (list != null &&  list instanceof List) {
                 Log.d("app", "menu category list contains " + list.size());
 
-                menuItemListAdapter.updateList(list);
+                searchMenuItemListAdapter.updateList(list);
                 recyclerView.setVisibility(View.VISIBLE);
             }
         });
 
         // Turn on/off Error Message
-        viewModel.menuItemLoadError.observe(getViewLifecycleOwner(), isError -> {
+        viewModel.searchMenuItemLoadError.observe(getViewLifecycleOwner(), isError -> {
 
             if (isError != null && isError instanceof Boolean) {
                 Log.d("app", "menu category error is " + isError);
@@ -186,7 +195,7 @@ public class MenuItemListFragment extends Fragment {
         });
 
         // Turn on/off Loading circle
-        viewModel.menuItemLoading.observe(getViewLifecycleOwner(), isLoading -> {
+        viewModel.searchMenuItemLoading.observe(getViewLifecycleOwner(), isLoading -> {
             if (isLoading != null && isLoading instanceof Boolean) {
                 Log.d("app", "menu category loading is " + isLoading);
                 processingProgressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);

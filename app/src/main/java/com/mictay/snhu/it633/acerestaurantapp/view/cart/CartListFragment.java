@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.mictay.snhu.it633.acerestaurantapp.R;
 import com.mictay.snhu.it633.acerestaurantapp.databinding.FragmentCartListBinding;
@@ -31,6 +32,7 @@ import java.util.List;
  */
 public class CartListFragment extends Fragment {
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private TextView errorTextView;
     private ProgressBar processingProgressBar;
@@ -93,12 +95,23 @@ public class CartListFragment extends Fragment {
                     .navigate(R.id.action_cartFragment_self, null);
         });
 
+        swipeRefreshLayout = binding.refreshCartListLayout;
         recyclerView = binding.recyclerCartList;
         errorTextView = binding.recyclerCartListError;
         processingProgressBar = binding.recyclerCartListLoading;
         noDataMessage = binding.recyclerCartListNoData;
         recyclerCartListNoDataButton = binding.recyclerCartListNoDataButton;
 
+        // Setup Force Refresh request
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            recyclerView.setVisibility(View.GONE);
+            errorTextView.setVisibility(View.GONE);
+            processingProgressBar.setVisibility(View.VISIBLE);
+            viewModel.refreshFromRemote();
+            swipeRefreshLayout.setRefreshing(false);
+        });
+
+        // Set up the No Data return to Menu Button
         recyclerCartListNoDataButton.setOnClickListener(v -> {
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
                         .navigate(R.id.action_cartFragment_to_menuCategoryList, null);

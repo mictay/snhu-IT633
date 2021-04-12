@@ -7,9 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mictay.snhu.it633.acerestaurantapp.R;
 import com.mictay.snhu.it633.acerestaurantapp.data.Data;
-import com.mictay.snhu.it633.acerestaurantapp.model.MenuCategory;
+import com.mictay.snhu.it633.acerestaurantapp.model.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,19 +18,19 @@ import java.util.List;
  * discouraged.  We will keep with the 1 model to 1 view-model
  *
  */
-public class MenuCategoryListViewModel extends AndroidViewModel {
+public class SearchMenuItemListViewModel extends AndroidViewModel {
 
     // Mutable Live data means we can change the variable when needed
-    public MutableLiveData<List<MenuCategory>> menuCategoryList = new MutableLiveData<List<MenuCategory>>();
-    public MutableLiveData<Boolean> menuCategoryLoadError = new MutableLiveData<Boolean>();
-    public MutableLiveData<Boolean> menuCategoryLoading = new MutableLiveData<Boolean>();
+    public MutableLiveData<List<MenuItem>> searchMenuItemList = new MutableLiveData<List<MenuItem>>();
+    public MutableLiveData<Boolean> searchMenuItemLoadError = new MutableLiveData<Boolean>();
+    public MutableLiveData<Boolean> searchMenuItemLoading = new MutableLiveData<Boolean>();
 
     /*******************************************************************
      * Constructor
      *
      * @param application
      */
-    public MenuCategoryListViewModel(@NonNull Application application) {
+    public SearchMenuItemListViewModel(@NonNull Application application) {
         super(application);
     }
 
@@ -39,25 +38,25 @@ public class MenuCategoryListViewModel extends AndroidViewModel {
      * This is called by the view to tell the view-model something has
      * changed.
      */
-    public void refresh() {
+    public void refresh(String searchParam) {
         Log.d("app", "refresh called");
 
         // TODO: MOCK THE DATA, GET THIS FROM A BACKEND
-        ArrayList<MenuCategory> arr = Data.getMenuCategoryList();
+        ArrayList<MenuItem> arr = Data.getSearchListResults(searchParam);
 
         // Let our watchers know somethings changed, and remove the error and spinner
-        menuCategoryList.setValue(arr);
-        menuCategoryLoadError.setValue(false);
-        menuCategoryLoading.setValue(false);
+        searchMenuItemList.setValue(arr);
+        searchMenuItemLoadError.setValue(false);
+        searchMenuItemLoading.setValue(false);
     }
 
     /***********************************************************************
      *
      */
-    public void refreshFromRemote() {
+    public void refreshFromRemote(String searchParam) {
         Log.d("app", "refreshFromRemote called");
         //TODO: cache busting, go get from the real system of record
-        refresh();
+        refresh(searchParam);
     }
 
 }
