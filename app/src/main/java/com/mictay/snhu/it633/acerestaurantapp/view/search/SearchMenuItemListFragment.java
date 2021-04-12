@@ -1,10 +1,12 @@
 package com.mictay.snhu.it633.acerestaurantapp.view.search;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -160,6 +162,12 @@ public class SearchMenuItemListFragment extends Fragment {
         // Setup that search button
         searchButton.setOnClickListener(v -> {
             Data.lastSearchTerm = searchEditText.getText().toString();
+
+            Context context = getContext();
+
+            // Can this close our Keyboard?
+            InputMethodManager manager = (InputMethodManager) context.getSystemService(context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(cartView.getWindowToken(), 0);
 
             Log.d("app", "searchButton clicked searching for " + Data.lastSearchTerm);
 
