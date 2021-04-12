@@ -47,15 +47,6 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <Space
-            android:id="@+id/recycler_cart_list_spacer"
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_height="71dp" />
-
         <LinearLayout
             android:id="@+id/recycler_cart_list_no_data"
             android:layout_width="match_parent"
@@ -94,6 +85,15 @@
             </Button>
 
         </LinearLayout>
+
+        <Space
+            android:id="@+id/recycler_cart_list_spacer"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="71dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

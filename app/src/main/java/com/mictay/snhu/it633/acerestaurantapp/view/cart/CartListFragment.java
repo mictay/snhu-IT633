@@ -176,7 +176,6 @@ public class CartListFragment extends Fragment {
             if (isError != null && isError instanceof Boolean) {
                 Log.d("app", "menu category error is " + isError);
                 errorTextView.setVisibility(isError ? View.VISIBLE : View.GONE);
-                noDataMessage.setVisibility( View.GONE );
             }
         });
 
@@ -185,12 +184,10 @@ public class CartListFragment extends Fragment {
             if (isLoading != null && isLoading instanceof Boolean) {
                 Log.d("app", "menu category loading is " + isLoading);
                 processingProgressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-                noDataMessage.setVisibility( View.GONE );
 
                 if (isLoading) {
                     errorTextView.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.GONE);
-                    noDataMessage.setVisibility(View.GONE);
                 }
             }
         });
