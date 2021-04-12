@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Space;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ public class SearchMenuItemListFragment extends Fragment {
     private EditText searchEditText;
     private Button searchButton;
     private Space spacer;
+    private LinearLayout noDataMessage;
 
     /*************************************************************
      *
@@ -119,6 +121,7 @@ public class SearchMenuItemListFragment extends Fragment {
         searchEditText = binding.searchMenuItemQueryText;
         searchButton = binding.searchMenuItemQueryButton;
         spacer = binding.recyclerSearchMenuItemListSpacer;
+        noDataMessage = binding.recyclerSearchMenuItemListNoData;
 
         // Setup Force Refresh request
         swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -182,6 +185,13 @@ public class SearchMenuItemListFragment extends Fragment {
 
                 searchMenuItemListAdapter.updateList(list);
                 recyclerView.setVisibility(View.VISIBLE);
+
+                if (list.size() == 0) {
+                    noDataMessage.setVisibility( View.VISIBLE );
+                } else {
+                    noDataMessage.setVisibility( View.GONE );
+                }
+
             }
         });
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Space;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.mictay.snhu.it633.acerestaurantapp.R;
 import com.mictay.snhu.it633.acerestaurantapp.databinding.FragmentCartListBinding;
+import com.mictay.snhu.it633.acerestaurantapp.view.home.HomeActivity;
 import com.mictay.snhu.it633.acerestaurantapp.viewmodel.CartListViewModel;
 
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ public class CartListFragment extends Fragment {
     private ProgressBar processingProgressBar;
     private LinearLayout noDataMessage;
     private Button recyclerCartListNoDataButton;
+    private Space spacer;
 
     private FragmentCartListBinding binding;
     private CartListViewModel viewModel;
@@ -101,6 +104,7 @@ public class CartListFragment extends Fragment {
         processingProgressBar = binding.recyclerCartListLoading;
         noDataMessage = binding.recyclerCartListNoData;
         recyclerCartListNoDataButton = binding.recyclerCartListNoDataButton;
+        spacer = binding.recyclerCartListSpacer;
 
         // Setup Force Refresh request
         swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -119,6 +123,13 @@ public class CartListFragment extends Fragment {
 
         // Gives us a List in a Linear fashion
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Gives us a List in a Linear fashion
+        if ( ((HomeActivity)getActivity()).isCartVisible() ) {
+            spacer.setVisibility(View.VISIBLE);
+        } else {
+            spacer.setVisibility(View.GONE);
+        }
 
         // Create the Adapter
         cartListAdapter = new CartListAdapter(getContext(), new ArrayList<>());
@@ -165,6 +176,7 @@ public class CartListFragment extends Fragment {
             if (isError != null && isError instanceof Boolean) {
                 Log.d("app", "menu category error is " + isError);
                 errorTextView.setVisibility(isError ? View.VISIBLE : View.GONE);
+                noDataMessage.setVisibility( View.GONE );
             }
         });
 
@@ -173,10 +185,12 @@ public class CartListFragment extends Fragment {
             if (isLoading != null && isLoading instanceof Boolean) {
                 Log.d("app", "menu category loading is " + isLoading);
                 processingProgressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+                noDataMessage.setVisibility( View.GONE );
 
                 if (isLoading) {
                     errorTextView.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.GONE);
+                    noDataMessage.setVisibility(View.GONE);
                 }
             }
         });
